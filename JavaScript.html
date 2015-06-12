@@ -1,5 +1,195 @@
 <script>
+	/********** Global **********/
+	/** encodeURI() decodeURI()
+	 *  对URI进行编码和对URI进行解码
+	 *  不会对本身属于URI的特殊字符进行编码，例如冒号、正斜杠、问好、井号
+	 */
+	(function(){
+		var enUri = "http://www.baidu.com/tes s.html?info=我";   
+		// return "http://www.baidu.com/tes%20s.html?info=%E6%88%91"
+		var deUri = "http://www.baidu.com/tes%20s.html?info=%E6%88%91";
+		// reutrn "http://www.baidu.com/tes s.html?info=我"
+	});
 
+	/** encodeURIComponent()
+	 *  对URI进行编码
+	 *  对发现的任何非标准字符进行编码
+	 */
+	(function(){
+		var enUri = "http://www.baidu.com/tes s.html?info=我";   
+		// return "http%3A%2F%2Fwww.baidu.com%2Ftes%20s.html%3Finfo%3D%E6%88%91"
+		var deUri = "http%3A%2F%2Fwww.baidu.com%2Ftes%20s.html%3Finfo%3D%E6%88%91";
+		// return "http://www.baidu.com/tes s.html?info=我"
+	});
+
+	/********** Math **********/
+	/** Math.max() Math.min()
+	 *  确定一组数值中得最大值或最小值
+	 */
+	(function(){
+		Math.max(2,3,4,5,6);        // return 6
+		Math.max(-5,-1,-2,-3);      // return -1
+
+		Math.min(2,3,4,5,6);        // reutrn 2
+
+		var arr = [1,2,3,4,5,6];
+		Math.max.apply(Math,arr);   // return 6 
+	});
+
+	/********** String **********/
+	/** String.charAt()
+	 *  访问字符串中特定字符
+	 *  @param     字符位置
+	 */
+	(function(){
+		var str = "Hello World!";
+		str.charAt();     // return "H"
+		str.charAt(0);    // return "H"
+		str.charAt(12);   // return ""
+	});
+
+	/** String.charCodeAt()
+	 *  访问字符串中特定字符
+	 *  @param     字符位置
+	 */
+	(function(){
+		var str = "Hello World!";
+		str.charCodeAt();     // return 72
+		str.charCodeAt(0);    // return 72
+		str.charCodeAt(1);    // return 101
+	});
+
+	/** String.slice()
+	 *  切割字符串返回被操作字符串的一个子字符串
+	 *  如果没有加第二个参数，则结束位置为字符串的结束位置
+	 *  参数为负数时，则把参数加上字符串的长度再使用
+	 *  @param     子字符串的开始位置
+	 *  @param     表示子字符串到哪里结束
+	 */
+	(function(){
+		var str = "Hello World!";
+		str.slice();       // return "Hello World!"
+		str.slice(0);      // return "Hello World!"
+		str.slice(1);      // return "ello World!"
+		str.slice(1,2);    // return "e"
+		str.slice(-2,-1);  // return "d"
+	});
+
+	/** String.substring()
+	 *  切割字符串返回被操作字符串的一个子字符串
+	 *  如果没有加第二个参数，则结束位置为字符串的结束位置
+	 *  @param     子字符串的开始位置
+	 *  @param     表示子字符串到哪里结束
+	 */
+	(function(){
+		var str = "Hello World!";
+		str.substring();       // return "Hello World!"
+		str.substring(0);      // return "Hello World!"
+		str.substring(1);      // return "ello World!"
+		str.substring(1,2);    // return "e"
+
+		// 当参数为未负数时则会转换为0
+		str.substring(-2,-1);  // return ""
+
+		// 当第二个参数为负数时,则将第二个参数转换为0
+		// 由于这个方法会将较小的数作为开始位置，将较大的数作为结束位置
+		// 最终相当于调用了substring(0,3)
+		str.substring(3,-1);   // reutrun "Hel"
+	});
+
+	/** String.substr()
+	 *  切割字符串返回被操作字符串的一个子字符串
+	 *  如果没有加第二个参数，则结束位置为字符串的结束位置
+	 *  @param     子字符串的开始位置
+	 *  @param     要返回的字符个数
+	 */
+	(function(){
+		var str = "Hello World!";
+		str.substr();       // return "Hello World!"
+		str.substr(0);      // return "Hello World!"
+		str.substr(1);      // return "ello World!"
+		str.substr(1,2);    // return "el"
+
+		// 当参数为未负数时则将第一个参数加上字符串长度
+		// 将第二个参数转换为0
+		str.substr(-2,-1);  // return ""
+	});
+
+	/** String.indexOf()
+	 *  从一个字符串中搜索给定的子字符串，然后返回子字符串的位置
+	 *  如果有多个字符串符合条件则返回搜索到得第一个符合的位置
+	 *  如果没有找到改子字符串，则返回-1
+	 *  从字符串的开头向后搜索子字符串
+	 */
+	(function(){
+		var str = "Hello World!";
+		str.indexOf("H");    // return 0
+		str.indexOf("He");   // return 0
+		str.indexOf("Hea");  // return -1
+		str.indexOf("l");    // return 2
+
+		/** 从字符串的指定位置向后搜索
+		 *  @param      位置
+		 */
+		str.indexOf("o",3);  // return 4
+		str.indexOf("o",4);  // return 4
+		str.indexOf("o",5);  // return 7
+	});
+
+	/** String.lastIndexOf()
+	 *  从一个字符串中搜索给定的子字符串，然后返回子字符串的位置
+	 *  如果有多个字符串符合条件则返回搜索到得第一个符合的位置
+	 *  如果没有找到改子字符串，则返回-1
+	 *  从字符串的末尾向前搜索子字符串
+	 */
+	(function(){
+		var str = "Hello World!";
+		str.lastIndexOf("H");    // return 0
+		str.lastIndexOf("He");   // return 0
+		str.lastIndexOf("Hea");  // return -1
+		str.lastIndexOf("l");    // return 9
+
+		/** 从字符串的指定位置向前搜索
+		 *  @param      位置
+		 */
+		str.lastIndexOf("o",3);  // return -1
+		str.lastIndexOf("o",4);  // return 4
+		str.lastIndexOf("o",5);  // return 7
+	});
+
+	/********** Number **********/
+	/** Number.toString()
+	 *  返回几进制数值的字符串形式
+	 *  @param     几进制的参数
+	 */
+	(function(){
+		var num = 10;
+
+		num.toString();     // return "10"
+		num.toString(2);	// return "1010"
+		num.toString(8);	// return "12"
+		num.toString(10);	// return "10"
+		num.toString(16);	// return "a"
+	});
+
+	/** Number.toFixed()
+	 *  按照指定的小数位返回数字的字符串表示
+	 *  @param     显示几位小数
+	 */
+	(function(){
+		var num = 10;
+
+		num.toFixed();     // "10"
+		num.toFixed(0);    // "10"
+		num.toFixed(2);    // "10.00"
+
+		var num1 = 10.005;
+		num1.toFixed(1);   // "10.0"
+		num1.toFixed(2);   // "10.01"
+		console.log(num1.toFixed(1));
+	});
+
+	/********** Array **********/
 	/** Array.slice()
 	 *  接受一个或两个参数，即要返回项的起始和结束位置
 	 * 	改方法不会影响原始数组
@@ -154,5 +344,53 @@
 	/** Array.filter()
 	 *  对数组中得每一项运行给定函数
 	 *  返回该函数会返回true的项组成的数组
-	 * /
+	 */
+	(function(){
+		/** 回调函数
+		 *  @param     item     当前项的值
+		 *  @param     index    当前项的索引
+		 *  @param     array    当前数组
+		 */
+		var arr = [1,2,3,4,5,4,3,2,1];
+		var res = arr.filter(function(item, index, array){
+			return (item > 2);
+		}); // return [3, 4, 5, 4, 3]
+
+		var res = arr.filter(function(item, index, array){
+			return (item > 6);
+		}); // return []		
+	});
+
+	/** Array.map()
+	 *  对数组中得每一项运行给定函数
+	 *  返回每次函数调用的结果组成的数组
+	 */
+	(function(){
+		/** 回调函数
+		 *  @param     item     当前项的值
+		 *  @param     index    当前项的索引
+		 *  @param     array    当前数组
+		 */
+		var arr = [1,2,3,4,5,4,3,2,1];
+		var res = arr.map(function(item, index, array){
+			return (item * 2);
+		}); // return [2, 4, 6, 8, 10, 8, 6, 4, 2]	
+	})();
+
+	/** Array.forEach()
+	 *  对数组中得每一项运行给定函数
+	 *  这个方法没有返回值
+	 *  本质上与使用for循环迭代数组一样
+	 */
+	(function(){
+		/** 回调函数
+		 *  @param     item     当前项的值
+		 *  @param     index    当前项的索引
+		 *  @param     array    当前数组
+		 */
+		var arr = [1,2,3,4,5,4,3,2,1];
+		var res = arr.forEach(function(item, index, array){
+			console.log(item);
+		});
+	});
 </script>
